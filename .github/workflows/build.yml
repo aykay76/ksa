@@ -3,6 +3,9 @@ on: push
 
 jobs:
   linux:
+    name: Test build
+    runs-on: ubuntu-latest
+
     steps:
     - name: Checkout
       uses: actions/checkout@v1
