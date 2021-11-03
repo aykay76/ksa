@@ -34,18 +34,14 @@ func DefaultController(w http.ResponseWriter, r *http.Request) {
 
 		idx := strings.Index(bodyString, "<!--#include file=")
 		for idx != -1 {
-			newBodyString := bodyString[0:idx]
-			bodyString = bodyString[idx:]
-
-			idx2 := strings.Index(bodyString, "-->")
+			right := bodyString[idx:]
+			idx2 := strings.Index(right, "-->") + idx
 			subfile := bodyString[idx+19 : idx2-1]
 
 			subfileContent, _ := ioutil.ReadFile("./web" + subfile)
 
-			newBodyString = newBodyString + string(subfileContent) + bodyString[idx2+3:]
+			newBodyString := bodyString[0:idx] + string(subfileContent) + bodyString[idx2+3:]
 			bodyString = newBodyString
-
-			fmt.Println(bodyString)
 
 			idx = strings.Index(bodyString, "<!--#include file=")
 		}
