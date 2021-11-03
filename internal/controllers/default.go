@@ -10,11 +10,13 @@ import (
 // make this a middleware component that prepares the content header etc, then pass to additional middleware
 // that will do data prep etc.
 func DefaultController(w http.ResponseWriter, r *http.Request) {
-	filename := "./web" + r.URL.Path
+	contentPath := "./web"
+
+	filename := contentPath + r.URL.Path
 
 	// add default document
-	if filename == "./web/" {
-		filename = "./web/index.html"
+	if filename == contentPath+"/" {
+		filename = contentPath + "/index.html"
 	}
 
 	// TODO: maybe improve the logging a bit ;)
@@ -38,7 +40,7 @@ func DefaultController(w http.ResponseWriter, r *http.Request) {
 			idx2 := strings.Index(right, "-->") + idx
 			subfile := bodyString[idx+19 : idx2-1]
 
-			subfileContent, _ := ioutil.ReadFile("./web" + subfile)
+			subfileContent, _ := ioutil.ReadFile(contentPath + subfile)
 
 			newBodyString := bodyString[0:idx] + string(subfileContent) + bodyString[idx2+3:]
 			bodyString = newBodyString
