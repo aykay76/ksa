@@ -1,4 +1,4 @@
-package main
+package controllers
 
 import (
 	"fmt"
@@ -7,12 +7,14 @@ import (
 	"strings"
 )
 
-func mainController(w http.ResponseWriter, r *http.Request) {
-	filename := "./content" + r.URL.Path
+// make this a middleware component that prepares the content header etc, then pass to additional middleware
+// that will do data prep etc.
+func defaultController(w http.ResponseWriter, r *http.Request) {
+	filename := "./web" + r.URL.Path
 
 	// add default document
-	if filename == "./content/" {
-		filename = "./content/index.html"
+	if filename == "./web/" {
+		filename = "./web/index.html"
 	}
 
 	// TODO: maybe improve the logging a bit ;)
@@ -35,7 +37,7 @@ func mainController(w http.ResponseWriter, r *http.Request) {
 			idx2 := strings.Index(bodyString, "-->")
 			subfile := bodyString[idx+19 : idx2-1]
 
-			subfileContent, _ := ioutil.ReadFile("./content" + subfile)
+			subfileContent, _ := ioutil.ReadFile("./web" + subfile)
 
 			newBodyString := bodyString[0:idx] + string(subfileContent) + bodyString[idx2+3:len(bodyString)]
 			bodyString = newBodyString
