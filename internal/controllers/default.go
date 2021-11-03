@@ -9,7 +9,7 @@ import (
 
 // make this a middleware component that prepares the content header etc, then pass to additional middleware
 // that will do data prep etc.
-func defaultController(w http.ResponseWriter, r *http.Request) {
+func DefaultController(w http.ResponseWriter, r *http.Request) {
 	filename := "./web" + r.URL.Path
 
 	// add default document
