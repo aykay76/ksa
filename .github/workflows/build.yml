@@ -12,4 +12,4 @@ jobs:
 
     - name: Moving build to artifacts directory
       run: |
-        docker build build/package
+        docker build .
