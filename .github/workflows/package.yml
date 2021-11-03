@@ -1,5 +1,7 @@
 name: CI
 on: push
+  branches:
+  - release
 
 jobs:
   linux:
@@ -10,6 +12,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Build Golang Application
+    - name: Moving build to artifacts directory
       run: |
-        go build -a
+        docker build .
