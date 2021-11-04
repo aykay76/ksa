@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ksa
+  labels:
+    app: ksa
+spec:
+  serviceName: ksa
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ksa
+  template:
+    metadata:
+      labels:
+        app: ksa
+    spec:
+      containers:
+      - name: ksa
+        image: ksa:1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
