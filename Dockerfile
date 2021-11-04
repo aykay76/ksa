@@ -8,4 +8,5 @@ FROM alpine AS final
 ARG ENV
 WORKDIR /
 COPY --from=builder /workspace/ksa .
+COPY web/ /web/
 CMD [ "./ksa" ]
